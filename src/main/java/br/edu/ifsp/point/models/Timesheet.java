@@ -12,6 +12,9 @@ public class Timesheet {
     private Long id;
 
     @Column(nullable = false)
+    private Date date;
+
+    @Column(nullable = false)
     private Date start;
 
     @Column(nullable = false)
@@ -50,5 +53,13 @@ public class Timesheet {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

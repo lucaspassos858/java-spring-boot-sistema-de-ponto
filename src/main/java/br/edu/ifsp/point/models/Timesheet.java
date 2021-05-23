@@ -1,10 +1,13 @@
 package br.edu.ifsp.point.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
-@Table(name = "tb_point")
+@Table(name = "tb_timesheet")
 public class Timesheet {
 
     @Id
@@ -12,13 +15,14 @@ public class Timesheet {
     private Long id;
 
     @Column(nullable = false)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
 
     @Column(nullable = false)
-    private Date start;
+    private Time start;
 
     @Column(nullable = false)
-    private Date end;
+    private Time end;
 
     @ManyToOne
     private User user;
@@ -31,19 +35,19 @@ public class Timesheet {
         this.id = id;
     }
 
-    public Date getStart() {
+    public Time getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(Time start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public Time getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(Time end) {
         this.end = end;
     }
 

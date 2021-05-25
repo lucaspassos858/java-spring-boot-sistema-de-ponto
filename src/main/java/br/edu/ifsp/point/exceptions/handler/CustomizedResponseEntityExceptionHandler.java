@@ -1,11 +1,11 @@
 package br.edu.ifsp.point.exceptions.handler;
 
+import br.edu.ifsp.point.exceptions.InvalidCredentials;
+import br.edu.ifsp.point.exceptions.UserNotFoundException;
 import br.edu.ifsp.point.models.api.ExceptionResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +33,11 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public final ResponseEntity<ExceptionResponse> handleDataIntegrityViolationExceptions(Exception ex){
+		return exceptionResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+	}
+
+	@ExceptionHandler(InvalidCredentials.class)
+	public final ResponseEntity<ExceptionResponse> handleConstraintViolationExceptions(Exception ex){
 		return exceptionResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
 	}
 

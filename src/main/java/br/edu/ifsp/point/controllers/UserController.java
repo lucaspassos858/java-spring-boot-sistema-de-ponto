@@ -2,6 +2,7 @@ package br.edu.ifsp.point.controllers;
 
 import br.edu.ifsp.point.models.User;
 import br.edu.ifsp.point.models.api.SuccessResponse;
+import br.edu.ifsp.point.models.vo.UserVO;
 import br.edu.ifsp.point.services.UserService;
 import br.edu.ifsp.point.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,31 +22,39 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<SuccessResponse> findAll(){
 
-        List<User> users = userService.findAll();
+        List<UserVO> usersVO = userService.findAll();
 
-        return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, users));
+        return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, usersVO));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SuccessResponse> findById(@PathVariable("id") Long id){
 
-        User user = userService.findById(id);
+        UserVO userVO = userService.findById(id);
 
-        return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, user));
+        return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, userVO));
     }
 
     @PostMapping("")
-    public ResponseEntity<SuccessResponse> save(@RequestBody User user){
+    public ResponseEntity<SuccessResponse> save(@RequestBody UserVO userVO){
 
-        User userCreated = userService.save(user);
+        UserVO userCreated = userService.save(userVO);
 
         return ResponseEntity.status(201).body(new SuccessResponse(HttpStatus.CREATED, userCreated));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SuccessResponse> update(@PathVariable("id") Long id, @RequestBody User user){
+    @PostMapping("/login")
+    public ResponseEntity<SuccessResponse> login(@RequestBody UserVO userVO){
 
-        User userUpdated = userService.update(id, user);
+        UserVO userLogged = userService.login(userVO);
+
+        return ResponseEntity.ok().body(new SuccessResponse(HttpStatus.OK, userLogged));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SuccessResponse> update(@PathVariable("id") Long id, @RequestBody UserVO userVO){
+
+        UserVO userUpdated = userService.update(id, userVO);
 
         return ResponseEntity.ok().body(new SuccessResponse(HttpStatus.OK, userUpdated));
     }

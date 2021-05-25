@@ -1,4 +1,4 @@
-package br.edu.ifsp.point.exceptions.handler;
+package br.edu.ifsp.point.exceptions;
 
 public class UserNotFoundException extends RuntimeException{
 

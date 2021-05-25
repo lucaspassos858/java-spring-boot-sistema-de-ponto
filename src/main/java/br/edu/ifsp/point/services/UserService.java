@@ -1,9 +1,13 @@
 package br.edu.ifsp.point.services;
 
-import br.edu.ifsp.point.exceptions.handler.UserNotFoundException;
+import br.edu.ifsp.point.converters.UserVOConverter;
+import br.edu.ifsp.point.exceptions.InvalidCredentials;
+import br.edu.ifsp.point.exceptions.UserNotFoundException;
 import br.edu.ifsp.point.models.User;
+import br.edu.ifsp.point.models.vo.UserVO;
 import br.edu.ifsp.point.repositories.UserRepository;
 import br.edu.ifsp.point.utils.PasswordUtils;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,31 +19,57 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public List<User> findAll(){
-        return userRepository.findAll();
+    public List<UserVO> findAll(){
+        return UserVOConverter.convertUsersToVO(userRepository.findAll());
     }
 
-    public User findById(Long id){
-        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado na base de dados"));
+    public UserVO findById(Long id){
+
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado na base de dados"));
+
+        return UserVOConverter.convertUserToVO(user);
     }
 
-    public User save(User user) {
+    public UserVO login(UserVO userVO) {
+        User user = userRepository.findByEmail(userVO.getEmail());
 
-        user.setPassword(PasswordUtils.encrypt(user.getPassword()));
+        if(user == null) {
+            throw new UserNotFoundException("Usuário não encontrado na base de dados");
+        }
 
-        return userRepository.save(user);
+        if(!PasswordUtils.checkPassword(userVO.getSenha(), user.getPassword())) {
+            throw new InvalidCredentials("Credenciais inválidas");
+        }
+
+        return UserVOConverter.convertUserToVO(user);
+
     }
 
-    public User update(Long id, User user) {
+    public UserVO save(UserVO userVO) {
 
-        User userFound = findById(id);
+        userVO.setSenha(PasswordUtils.encrypt(userVO.getSenha()));
 
-        return userRepository.save(userFound);
+        User user = userRepository.save(UserVOConverter.convertVOToUser(userVO));
+
+        return UserVOConverter.convertUserToVO(user);
     }
 
-    public void deleteById(Long id) {
+    public UserVO update(Long id, UserVO userVO) {
 
-        findById(id);
+        UserVO userFound = this.findById(id);
+
+        userFound.setNome(userVO.getNome());
+        userFound.setEmail(userVO.getEmail());
+        userFound.setSenha(PasswordUtils.encrypt(userVO.getSenha()));
+
+        User user = userRepository.save(UserVOConverter.convertVOToUser(userFound));
+
+        return UserVOConverter.convertUserToVO(user);
+    }
+
+    public void deleteById(Long id) throws ConstraintViolationException {
+
+        this.findById(id);
 
         userRepository.deleteById(id);
     }

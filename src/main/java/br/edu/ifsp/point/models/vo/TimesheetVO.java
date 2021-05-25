@@ -2,11 +2,15 @@ package br.edu.ifsp.point.models.vo;
 
 import br.edu.ifsp.point.models.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
 
+@Getter
+@Setter
 public class TimesheetVO {
 
     private Long id;
@@ -20,43 +24,4 @@ public class TimesheetVO {
 
     private UserVO usuario;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public Time getJornadaInicio() {
-        return jornadaInicio;
-    }
-
-    public void setJornadaInicio(Time jornadaInicio) {
-        this.jornadaInicio = jornadaInicio;
-    }
-
-    public Time getJornadaFim() {
-        return jornadaFim;
-    }
-
-    public void setJornadaFim(Time jornadaFim) {
-        this.jornadaFim = jornadaFim;
-    }
-
-    public UserVO getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(UserVO usuario) {
-        this.usuario = usuario;
-    }
 }

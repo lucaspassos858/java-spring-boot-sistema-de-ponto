@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
+import axios from 'axios';
 
 import "./styles.css";
 
@@ -10,11 +11,16 @@ function App() {
     handleSubmit
   } = useForm();
   const onSubmit = (data) => {
-    console.log('Nome => ' + data.name);
-    console.log('Hora de Entrada => ' + data.horaEntrada);
-    console.log('Hora de Saída => ' + data.horaSaida);
-
-    alert(data.name + '\n' + data.horaEntrada + '\n' + data.horaSaida);
+    const person = {
+      name: data.name,
+      horaEntrada: data.horaEntrada,
+      horaSaida: data.horaSaida,
+    }
+    axios.post(`https://jsonplaceholder.typicode.com/users`, { person })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
   };
 
   return (

@@ -22,7 +22,15 @@ function App() {
       <div>
         <h1> Bem Vindo(a) ao Sistema de Ponto </h1>
       </div>
-      <div style={{border:"1px solid gray", padding:"20px", width:"40%", margin:"0 auto"}}>
+      <div 
+        style = {{
+          border:"1px solid gray", 
+          padding:"20px", 
+          width:"40%", 
+          margin:"0 auto", 
+          background:"#3a3a3a", 
+          borderRadius:"5px"
+        }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label> Nome </label>
           <input {...register("name")} placeholder="Digite seu nome" required/>

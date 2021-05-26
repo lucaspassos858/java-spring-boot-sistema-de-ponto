@@ -5,6 +5,8 @@ import br.edu.ifsp.point.models.api.SuccessResponse;
 import br.edu.ifsp.point.models.vo.UserVO;
 import br.edu.ifsp.point.services.UserService;
 import br.edu.ifsp.point.utils.PasswordUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping(value = "/user")
+@Api(value = "API - Usuários")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
     UserService userService;
 
     @GetMapping("")
+    @ApiOperation("Retorna uma lista com os usuários cadastrados")
     public ResponseEntity<SuccessResponse> findAll(){
 
         List<UserVO> usersVO = userService.findAll();
@@ -28,6 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Retorna um único usuário")
     public ResponseEntity<SuccessResponse> findById(@PathVariable("id") Long id){
 
         UserVO userVO = userService.findById(id);
@@ -36,6 +42,7 @@ public class UserController {
     }
 
     @PostMapping("")
+    @ApiOperation("Cadastra um usuário na base de dados")
     public ResponseEntity<SuccessResponse> save(@RequestBody UserVO userVO){
 
         UserVO userCreated = userService.save(userVO);
@@ -44,6 +51,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    @ApiOperation("Retorna o usuário com o e-mail e senha especificados")
     public ResponseEntity<SuccessResponse> login(@RequestBody UserVO userVO){
 
         UserVO userLogged = userService.login(userVO);
@@ -52,6 +60,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @ApiOperation("Atualiza um usuário na base de dados")
     public ResponseEntity<SuccessResponse> update(@PathVariable("id") Long id, @RequestBody UserVO userVO){
 
         UserVO userUpdated = userService.update(id, userVO);
@@ -60,6 +69,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation("Deleta um usuário na base de dados")
     public ResponseEntity<SuccessResponse> deleteById(@PathVariable("id") Long id){
 
         userService.deleteById(id);

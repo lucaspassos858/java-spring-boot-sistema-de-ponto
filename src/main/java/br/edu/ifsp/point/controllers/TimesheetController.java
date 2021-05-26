@@ -3,6 +3,8 @@ package br.edu.ifsp.point.controllers;
 import br.edu.ifsp.point.models.api.SuccessResponse;
 import br.edu.ifsp.point.models.vo.TimesheetVO;
 import br.edu.ifsp.point.services.TimesheetService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/timesheet")
+@Api(value = "API - Timesheet")
+@CrossOrigin(origins = "*")
 public class TimesheetController {
 
     @Autowired
     TimesheetService timesheetService;
 
     @GetMapping("")
+    @ApiOperation("Retorna uma lista com os pontos cadastrados")
     public ResponseEntity<SuccessResponse> findAll(){
 
         List<TimesheetVO> timesheetsVO = timesheetService.findAll();
@@ -27,6 +32,7 @@ public class TimesheetController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Retorna um único ponto cadastrado")
     public ResponseEntity<SuccessResponse> findById(@PathVariable("id") Long id){
 
         TimesheetVO timesheetVO = timesheetService.findById(id);
@@ -35,6 +41,7 @@ public class TimesheetController {
     }
 
     @GetMapping("/user/{id}")
+    @ApiOperation("Retorna uma lista com os pontos cadastrados pelo usuário especificado")
     public ResponseEntity<SuccessResponse> findByUserId(@PathVariable("id") Long id){
 
         List<TimesheetVO> timesheetsVO = timesheetService.findByUserId(id);
@@ -44,6 +51,7 @@ public class TimesheetController {
     }
 
     @PostMapping("")
+    @ApiOperation("Cadastra um ponto na base de dados")
     public ResponseEntity<SuccessResponse> create(@RequestBody TimesheetVO obj) throws ParseException {
 
         TimesheetVO timesheetCreated = timesheetService.save(obj);
@@ -52,6 +60,7 @@ public class TimesheetController {
     }
 
     @PutMapping("/{id}")
+    @ApiOperation("Atualiza um ponto na base de dados")
     public ResponseEntity<SuccessResponse> update(@PathVariable("id") Long id, @RequestBody TimesheetVO obj){
 
         TimesheetVO timesheetUpdated = timesheetService.update(id, obj);
@@ -60,6 +69,7 @@ public class TimesheetController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation("Deleta um ponto na base de dados")
     public ResponseEntity<SuccessResponse> delete(@PathVariable("id") Long id){
 
         timesheetService.deleteById(id);

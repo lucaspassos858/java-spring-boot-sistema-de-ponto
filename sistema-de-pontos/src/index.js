@@ -1,17 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import { useForm } from "react-hook-form";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import "./styles.css";
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function App() {
+  const {
+    register,
+    handleSubmit
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log('Nome => ' + data.name);
+    console.log('Hora de Entrada => ' + data.horaEntrada);
+    console.log('Hora de Saída => ' + data.horaSaida);
+  };
+
+  return (
+    <div>
+      <div>
+        <h1> Bem Vindo(a) ao Sistema de Pontos </h1>
+      </div>
+      <div style={{border:"1px solid gray", padding:"20px", width:"40%", margin:"0 auto"}}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label> Nome </label>
+          <input {...register("name")} required/>
+          <label> Hora de Entrada </label>
+          <input {...register("horaEntrada")} type="time" required/>
+          <label> Hora de Saída: </label>
+          <input {...register("horaSaida")} type="time" required/>
+          <input type="submit" />
+        </form>
+      </div>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);

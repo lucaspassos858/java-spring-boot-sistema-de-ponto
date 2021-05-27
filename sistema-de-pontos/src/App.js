@@ -4,7 +4,7 @@ import Register from './components/Register';
 import "./styles.css";
 class App extends Component {
   render() {
-    const isLoggedIn = true;
+    const isLoggedIn = false;
     const renderCondition = () => {
         if(isLoggedIn){
             return <PointForm/>

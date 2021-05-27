@@ -23,12 +23,12 @@ function Register() {
         });
     };
   return (
-    <div>
+    <div id="wrapper">
       <div>
-        <h1> Bem Vindo(a) ao Sistema de Ponto </h1>
+        <h1> Sistema de Ponto </h1>
       </div>
       <div id="container">
-        <h2>Realize seu Cadastro</h2>
+        <h2>Cadastro de Funcionário</h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <label> Nome </label>

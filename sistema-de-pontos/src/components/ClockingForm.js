@@ -25,9 +25,9 @@ function ClockingForm() {
   };
 
   return (
-    <div>
+    <div id="wrapper">
       <div>
-        <h1> Bem Vindo(a) ao Sistema de Ponto </h1>
+        <h1> Sistema de Ponto </h1>
       </div>
       <div id="container">
         <h2>Registro de Ponto</h2>

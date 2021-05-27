@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PointForm from './ClockingForm';
-import Register from './Register';
+import PointForm from './components/ClockingForm';
+import Register from './components/Register';
 import "./styles.css";
 class App extends Component {
   render() {

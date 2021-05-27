@@ -18,6 +18,13 @@ h1 {
   border-bottom: 1px solid rgb(79, 98, 148);
 }
 
+h2{
+  font-weight: 400;
+  color: white;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
 .form {
   background: #0e101c;
   max-width: 400px;
@@ -57,21 +64,20 @@ label {
 
 button[type="submit"],
 input[type="submit"] {
-  background: #cf2966;
+  background: rgb(16 16 16);
   color: white;
   text-transform: uppercase;
   border: none;
   margin-top: 40px;
-  padding: 20px;
-  font-size: 16px;
+  padding: 18px;
+  font-size: 20px;
   font-weight: 100;
-  letter-spacing: 10px;
-  border: 1px solid #afafaf;
+  letter-spacing: 6px;
 }
 
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-  background: #bf1650;
+  background: rgb(2 2 2);
   cursor:pointer;
 }
 
@@ -127,4 +133,12 @@ button {
   text-transform: uppercase;
   padding: 10px 20px;
   border-radius: 4px;
+}
+
+#container{
+  border: 1px solid gray;
+  padding: 20px; 
+  margin: 0 auto; 
+  background: #3a3a3a; 
+  border-radius: 5px;
 }

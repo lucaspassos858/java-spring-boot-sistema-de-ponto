@@ -1,24 +1,11 @@
-import React, { Component } from 'react';
-import PointForm from './components/ClockingForm';
-import Register from './components/Register';
+import React from 'react';
+import Routes from './Routes';
 import "./styles.css";
-class App extends Component {
-  render() {
-    const isLoggedIn = false;
-    const renderCondition = () => {
-        if(isLoggedIn){
-            return <PointForm/>
-        } else{
-            return <Register />
-        }
-    } 
 
+function App() {
     return (
-      <div className="App">
-        {renderCondition()}
-      </div>
+      <Routes />
     );
-  }
 }
 
 export default App;

@@ -1,27 +1,32 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import axios from 'axios';
+import { useHistory } from "react-router-dom";
+import api from '../api';
 
 function Register() {
-    const {
-        register,
-        handleSubmit
-    } = useForm();
+  const history = useHistory();
 
-    const onSubmit = (data) => {
+  const {
+      register,
+      handleSubmit
+  } = useForm();
+    
+  const onSubmit = (data) => {
     const person = {
-        name: data.name,
+        nome: data.nome,
         email: data.email,
-        password: data.password,
+        senha: data.senha,
     }
 
     console.log('person => ' + JSON.stringify(person));
 
-    axios.post(`https://jsonplaceholder.typicode.com/users`, { person })
-        .then(res => {
-            console.log(res.data);
-        });
-    };
+    api.post(`/user`, { person })
+    .then(res => {
+        console.log(res.data);
+        history.replace("/clocking");
+    });
+  };
+    
   return (
     <div id="wrapper">
       <div>
@@ -32,11 +37,11 @@ function Register() {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <label> Nome </label>
-          <input {...register("name")} placeholder="Digite seu nome" required/>
+          <input {...register("nome")} placeholder="Digite seu nome" required/>
           <label> Email </label>
           <input {...register("email")} type="email" placeholder="Digite seu e-mail" required/>
           <label> Senha </label>
-          <input {...register("password")} type="password" placeholder="Digite sua senha" required/>
+          <input {...register("senha")} type="password" placeholder="Digite sua senha" required/>
           <input type="submit" value="Cadastrar"/>
         </form>
       </div>

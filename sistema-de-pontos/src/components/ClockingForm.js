@@ -1,26 +1,48 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import axios from 'axios';
+import api from "../api";
+import { useHistory } from "react-router-dom";
+
 
 function ClockingForm() {
-
+  const history = useHistory();
+  
   const {
     register,
     handleSubmit
   } = useForm();
 
   const onSubmit = (data) => {
-    const personClocking = {
-      date: data.date,
-      start: data.start,
-      end: data.end,
+    const login = {
+      email: data.email,
+      senha: data.senha
     }
 
-    console.log('personClocking => ' + JSON.stringify(personClocking));
+    
 
-    axios.post(`https://jsonplaceholder.typicode.com/users`, { personClocking })
+    api.post('/user/login', login)
     .then(res => {
-        console.log(res.data);
+      console.log('response => ' + JSON.stringify(res));
+
+      if(res.status === 200){
+        const userId = res.data.data.id;
+        const timesheet = {
+          data: data.data,
+          jornadaInicio: data.jornadaInicio,
+          jornadaFim: data.jornadaFim,
+          usuario: {
+            id: userId
+          }
+        }  
+        console.log('timesheet => ' + JSON.stringify(timesheet));
+        api.post('/timesheet', timesheet)
+        .then(res => {
+          if(res.status === 201){
+            
+          }
+        });
+
+      } 
     });
   };
 
@@ -33,12 +55,16 @@ function ClockingForm() {
         <h2>Registro de Ponto</h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
+          <label> Email </label>
+          <input {...register("email")} type="email" placeholder="Digite seu e-mail" required/>
+          <label> Senha </label>
+          <input {...register("senha")} type="password" placeholder="Digite sua senha" required/>
           <label> Data </label>
-          <input {...register("date")} type="date" required/>
+          <input {...register("data")} type="date" required/>
           <label> Hora de Entrada </label>
-          <input {...register("start")} type="time" required/>
+          <input {...register("jornadaInicio")} type="time" step="1" required/>
           <label> Hora de Saída: </label>
-          <input {...register("end")} type="time" required/>
+          <input {...register("jornadaFim")} type="time" step="1" required/>
           <input type="submit" value="Registrar Ponto"/>
         </form>
       </div>

@@ -17,13 +17,12 @@ function Register() {
         email: data.email,
         senha: data.senha,
     }
-
-    console.log('person => ' + JSON.stringify(person));
-
-    api.post(`/user`, { person })
+    console.log('person => ' + person);
+    api.post('/user', person)
     .then(res => {
-        console.log(res.data);
+      if(res.status === 201){
         history.replace("/clocking");
+      } 
     });
   };
     

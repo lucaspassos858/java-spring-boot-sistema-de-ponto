@@ -18,8 +18,6 @@ function ClockingForm() {
       senha: data.senha
     }
 
-    
-
     api.post('/user/login', login)
     .then(res => {
       console.log('response => ' + JSON.stringify(res));
@@ -34,15 +32,18 @@ function ClockingForm() {
             id: userId
           }
         }  
-        console.log('timesheet => ' + JSON.stringify(timesheet));
+        console.log(`timesheet => ${JSON.stringify(timesheet)}`);
         api.post('/timesheet', timesheet)
         .then(res => {
           if(res.status === 201){
-            
+            history.replace("/view");
           }
         });
+      }
 
-      } 
+    })
+    .catch(() => {
+      window.alert('Funcionário não encontrado no sistema');
     });
   };
 

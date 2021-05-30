@@ -21,10 +21,16 @@ export default class ClockingView extends React.Component {
     
     handleDelete(userId){
         console.log('Id => ' + userId);
-        api.get(`/user/${userId}`)
+
+        api.delete(`/user/${userId}`)
         .then(res => {
-            if(res.status === 200){
-                alert('Usuário deletado');
+            if(res.status === 204){
+                /*let users = this.state.users;
+                const updatedUsers = users.filter(function(value){ 
+                    return value.id !== res.data.data.id;
+                });
+                this.setState({users: updatedUsers});*/
+                window.location.reload();
             }
         })
         .catch(error => {
@@ -33,9 +39,7 @@ export default class ClockingView extends React.Component {
     }
     
     render(){
-        const {users} = this.state;
-        console.log(users);
-
+        const {users} = this.state;        
         return (
             <div className="container mt-3">
                 <h1> Visualização de Dados </h1>

@@ -20,7 +20,6 @@ function ClockingForm() {
 
     api.post('/user/login', login)
     .then(res => {
-      console.log('response => ' + JSON.stringify(res));
 
       if(res.status === 200){
         const userId = res.data.data.id;
@@ -32,7 +31,6 @@ function ClockingForm() {
             id: userId
           }
         }  
-        console.log(`timesheet => ${JSON.stringify(timesheet)}`);
         api.post('/timesheet', timesheet)
         .then(res => {
           if(res.status === 201){

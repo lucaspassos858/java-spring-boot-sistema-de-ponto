@@ -21,7 +21,7 @@ function Register() {
     api.post('/user', person)
     .then(res => {
       if(res.status === 201){
-        history.replace("/clocking");
+        history.replace("/view");
       } 
     });
   };

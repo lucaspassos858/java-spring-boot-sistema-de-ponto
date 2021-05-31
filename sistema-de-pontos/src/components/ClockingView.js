@@ -6,7 +6,7 @@ import { faEdit, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faEraser } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-modal';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap';
 
 const customStyles = {
     content : {
@@ -28,7 +28,9 @@ export default class ClockingView extends React.Component {
         date: "",
         jornadaInicio: "",
         jornadaFim: "",
-        isModalOpen: false
+        isModalOpen: false,
+        alertMsg: "",
+        showSuccess: false
     }
 
     async componentDidMount(){
@@ -54,7 +56,8 @@ export default class ClockingView extends React.Component {
         api.delete(`/timesheet/${id}`)
         .then(res => {
             if(res.status === 204){
-                window.location.reload();
+                this.showSuccessAlert("Item deletado com sucesso!");
+                setTimeout(function(){ window.location.reload(); }, 2000);
             }
         })
         .catch(error => {
@@ -95,8 +98,10 @@ export default class ClockingView extends React.Component {
         api.put(`/timesheet/${id}`, timesheet)
         .then(res => {
             if(res.status === 200){
+                this.setState({})
                 this.closeModal();
-                window.location.reload();
+                this.showSuccessAlert("Dados atualizados com sucesso!");
+                setTimeout(function(){ window.location.reload(); }, 2000);
             }
         })
         .catch(error => {
@@ -104,14 +109,26 @@ export default class ClockingView extends React.Component {
         });
     }
 
+    showSuccessAlert = (msg) => {
+        this.setState({ alertMsg: msg });
+        this.setState({ showSuccess: true });
+    }
+
+
     render(){
         const {data} = this.state;   
         const {dataById} = this.state;
-
-        console.log('dataById => ' + JSON.stringify(dataById));
+        const {alertMsg} = this.state;
+        const {showSuccess} = this.state;
         
         return (
             <div className="container mt-3">
+                <Alert 
+                    variant="success" 
+                    show={showSuccess}>
+                    <Alert.Heading> {alertMsg} </Alert.Heading>
+                </Alert>
+
                 <h1> Visualização de Dados </h1>
                 
                 <Table striped bordered hover variant="dark" className="mt-4">
@@ -168,7 +185,6 @@ export default class ClockingView extends React.Component {
                     </tbody>
                 </Table>
                 
-
                 <Modal
                     isOpen={this.state.isModalOpen}
                     style={customStyles}

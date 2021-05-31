@@ -114,7 +114,7 @@ export default class ClockingView extends React.Component {
             <div className="container mt-3">
                 <h1> Visualização de Dados </h1>
                 
-                <Table striped bordered hover variant="dark">
+                <Table striped bordered hover variant="dark" className="mt-4">
                     <thead>
                         <tr>
                             <th colSpan="7" style={{background: 'rgb(37 38 39)'}}> Tabela de Marcação de Ponto </th>

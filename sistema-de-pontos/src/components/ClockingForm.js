@@ -47,9 +47,6 @@ function ClockingForm() {
 
   return (
     <div id="wrapper">
-      <div>
-        <h1> Sistema de Ponto </h1>
-      </div>
       <div id="container">
         <h2>Registro de Ponto</h2>
 

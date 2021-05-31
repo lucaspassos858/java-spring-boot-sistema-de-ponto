@@ -27,7 +27,7 @@ function Register() {
   };
     
   return (
-    <div id="wrapper">
+    <div id="wrapper" className="mt-4">
       <div>
         <h1> Sistema de Ponto </h1>
       </div>

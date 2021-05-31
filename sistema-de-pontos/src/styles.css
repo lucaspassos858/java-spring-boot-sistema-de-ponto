@@ -149,3 +149,11 @@ button {
   background: #3a3a3a; 
   border-radius: 5px;
 }
+
+#alert {
+  width: 95%;
+  padding: 10px;
+  height: 53px;
+  margin: 0 auto;
+  margin-top: 20px;
+}

@@ -69,7 +69,7 @@ export default class ClockingView extends React.Component {
         api.get(`/timesheet/${id}`)
         .then(res => {
             if(res.status === 200){
-                this.setState({dataById: res.data.data});
+                this.setState({ dataById: res.data.data });
             }
         })
         .catch(error => {
@@ -98,7 +98,6 @@ export default class ClockingView extends React.Component {
         api.put(`/timesheet/${id}`, timesheet)
         .then(res => {
             if(res.status === 200){
-                this.setState({})
                 this.closeModal();
                 this.showSuccessAlert("Dados atualizados com sucesso!");
                 setTimeout(function(){ window.location.reload(); }, 2000);
@@ -114,7 +113,6 @@ export default class ClockingView extends React.Component {
         this.setState({ showSuccess: true });
     }
 
-
     render(){
         const {data} = this.state;   
         const {dataById} = this.state;
@@ -123,13 +121,15 @@ export default class ClockingView extends React.Component {
         
         return (
             <div className="container mt-3">
+            
+                <h1> Visualização de Dados </h1>
+
                 <Alert 
+                    id="alert"
                     variant="success" 
                     show={showSuccess}>
                     <Alert.Heading> {alertMsg} </Alert.Heading>
                 </Alert>
-
-                <h1> Visualização de Dados </h1>
                 
                 <Table striped bordered hover variant="dark" className="mt-4">
                     <thead>

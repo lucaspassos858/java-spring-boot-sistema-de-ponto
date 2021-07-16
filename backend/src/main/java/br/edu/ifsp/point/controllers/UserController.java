@@ -17,6 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping(value = "/user")
 @Api(value = "API - Usuários")
@@ -31,7 +32,12 @@ public class UserController {
     public ResponseEntity<SuccessResponse> findAll(){
 
         List<UserVO> usersVO = userService.findAll();
-
+        usersVO
+        	.stream()
+        		.forEach(user -> user.add(
+        				linkTo(methodOn(UserController.class).findById(user.getKey())).withSelfRel()
+        		)
+        	);
         return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, usersVO));
     }
 
@@ -49,7 +55,7 @@ public class UserController {
     public ResponseEntity<SuccessResponse> save(@RequestBody UserVO userVO){
 
         UserVO userCreated = userService.save(userVO);
-
+        userVO.add(linkTo(methodOn(UserController.class).findById(userVO.getKey())).withSelfRel());
         return ResponseEntity.status(201).body(new SuccessResponse(HttpStatus.CREATED, userCreated));
     }
 
@@ -58,7 +64,7 @@ public class UserController {
     public ResponseEntity<SuccessResponse> login(@RequestBody UserVO userVO){
 
         UserVO userLogged = userService.login(userVO);
-
+        userVO.add(linkTo(methodOn(UserController.class).findById(userVO.getKey())).withSelfRel());
         return ResponseEntity.ok().body(new SuccessResponse(HttpStatus.OK, userLogged));
     }
 
@@ -67,7 +73,7 @@ public class UserController {
     public ResponseEntity<SuccessResponse> update(@PathVariable("id") Long id, @RequestBody UserVO userVO){
 
         UserVO userUpdated = userService.update(id, userVO);
-        
+        userVO.add(linkTo(methodOn(UserController.class).findById(userVO.getKey())).withSelfRel());
         return ResponseEntity.ok().body(new SuccessResponse(HttpStatus.OK, userUpdated));
     }
 
@@ -76,7 +82,6 @@ public class UserController {
     public ResponseEntity<SuccessResponse> deleteById(@PathVariable("id") Long id){
 
         userService.deleteById(id);
-
         return ResponseEntity.status(204).body(new SuccessResponse(HttpStatus.NO_CONTENT, "Usuário deletado com sucesso"));
     }
 

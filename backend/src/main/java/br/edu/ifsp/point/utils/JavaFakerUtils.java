@@ -22,7 +22,8 @@ public class JavaFakerUtils {
         return userVO;
     }
 
-    public static TimesheetVO generateTimesheetVOData(UserVO userVO) {
+    @SuppressWarnings("deprecation")
+	public static TimesheetVO generateTimesheetVOData(UserVO userVO) {
 
         TimesheetVO timesheetVO = new TimesheetVO();
 

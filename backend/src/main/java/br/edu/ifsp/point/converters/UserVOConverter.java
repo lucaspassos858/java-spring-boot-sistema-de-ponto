@@ -12,7 +12,7 @@ public class UserVOConverter {
 
         User user = new User();
 
-        user.setId(userVO.getId());
+        user.setId(userVO.getKey());
         user.setName(userVO.getNome());
         user.setEmail(userVO.getEmail());
         user.setPassword(userVO.getSenha());
@@ -24,7 +24,7 @@ public class UserVOConverter {
 
         UserVO userVO = new UserVO();
 
-        userVO.setId(user.getId());
+        userVO.setKey(user.getId());
         userVO.setNome(user.getName());
         userVO.setEmail(user.getEmail());
         userVO.setSenha(user.getPassword());

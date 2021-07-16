@@ -10,8 +10,11 @@ import java.util.Date;
 @Setter
 public class ExceptionResponse {
 
+	@SuppressWarnings("unused")
 	private Date timestamp;
+	@SuppressWarnings("unused")
 	private HttpStatus status;
+	@SuppressWarnings("unused")
 	private String error;
 
 	public ExceptionResponse(HttpStatus status, String error) {

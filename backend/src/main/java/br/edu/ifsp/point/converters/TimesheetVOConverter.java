@@ -8,6 +8,7 @@ import br.edu.ifsp.point.models.vo.UserVO;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class TimesheetVOConverter {
 
     public static Timesheet convertVOToTimesheet(TimesheetVO timesheetVO){

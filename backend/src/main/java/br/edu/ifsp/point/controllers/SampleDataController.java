@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/sample")
 public class SampleDataController {

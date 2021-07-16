@@ -28,7 +28,47 @@ public class Timesheet {
     @Column(nullable = false)
     private Time end;
 
-    @ManyToOne
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Time getStart() {
+		return start;
+	}
+
+	public void setStart(Time start) {
+		this.start = start;
+	}
+
+	public Time getEnd() {
+		return end;
+	}
+
+	public void setEnd(Time end) {
+		this.end = end;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@ManyToOne
     private User user;
 
 }

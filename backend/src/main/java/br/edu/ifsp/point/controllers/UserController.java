@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 
 @RestController
@@ -37,7 +40,7 @@ public class UserController {
     public ResponseEntity<SuccessResponse> findById(@PathVariable("id") Long id){
 
         UserVO userVO = userService.findById(id);
-
+        userVO.add(linkTo(methodOn(UserController.class).findById(id)).withSelfRel());
         return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, userVO));
     }
 
@@ -64,7 +67,7 @@ public class UserController {
     public ResponseEntity<SuccessResponse> update(@PathVariable("id") Long id, @RequestBody UserVO userVO){
 
         UserVO userUpdated = userService.update(id, userVO);
-
+        
         return ResponseEntity.ok().body(new SuccessResponse(HttpStatus.OK, userUpdated));
     }
 

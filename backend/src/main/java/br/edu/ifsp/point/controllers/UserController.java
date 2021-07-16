@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("")
+    @GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Retorna uma lista com os usuários cadastrados")
     public ResponseEntity<SuccessResponse> findAll(){
 
@@ -32,7 +32,7 @@ public class UserController {
         return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, usersVO));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Retorna um único usuário")
     public ResponseEntity<SuccessResponse> findById(@PathVariable("id") Long id){
 
@@ -41,7 +41,7 @@ public class UserController {
         return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, userVO));
     }
 
-    @PostMapping("")
+    @PostMapping(produces = { "application/json", "application/xml", "application/x-yaml" }, consumes = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Cadastra um usuário na base de dados")
     public ResponseEntity<SuccessResponse> save(@RequestBody UserVO userVO){
 
@@ -50,7 +50,7 @@ public class UserController {
         return ResponseEntity.status(201).body(new SuccessResponse(HttpStatus.CREATED, userCreated));
     }
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", produces = { "application/json", "application/xml", "application/x-yaml" }, consumes = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Retorna o usuário com o e-mail e senha especificados")
     public ResponseEntity<SuccessResponse> login(@RequestBody UserVO userVO){
 
@@ -59,7 +59,7 @@ public class UserController {
         return ResponseEntity.ok().body(new SuccessResponse(HttpStatus.OK, userLogged));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" }, consumes = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Atualiza um usuário na base de dados")
     public ResponseEntity<SuccessResponse> update(@PathVariable("id") Long id, @RequestBody UserVO userVO){
 
@@ -68,7 +68,7 @@ public class UserController {
         return ResponseEntity.ok().body(new SuccessResponse(HttpStatus.OK, userUpdated));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Deleta um usuário na base de dados")
     public ResponseEntity<SuccessResponse> deleteById(@PathVariable("id") Long id){
 

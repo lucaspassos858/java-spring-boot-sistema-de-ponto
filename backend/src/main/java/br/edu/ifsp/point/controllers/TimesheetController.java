@@ -22,7 +22,7 @@ public class TimesheetController {
     @Autowired
     TimesheetService timesheetService;
 
-    @GetMapping("")
+    @GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Retorna uma lista com os pontos cadastrados")
     public ResponseEntity<SuccessResponse> findAll(){
 
@@ -31,7 +31,7 @@ public class TimesheetController {
         return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, timesheetsVO));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Retorna um único ponto cadastrado")
     public ResponseEntity<SuccessResponse> findById(@PathVariable("id") Long id){
 
@@ -40,7 +40,7 @@ public class TimesheetController {
         return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, timesheetVO));
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping(value = "/user/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Retorna uma lista com os pontos cadastrados pelo usuário especificado")
     public ResponseEntity<SuccessResponse> findByUserId(@PathVariable("id") Long id){
 
@@ -50,7 +50,7 @@ public class TimesheetController {
         return ResponseEntity.ok(new SuccessResponse(HttpStatus.OK, timesheetsVO));
     }
 
-    @PostMapping("")
+    @PostMapping(produces = { "application/json", "application/xml", "application/x-yaml" }, consumes = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Cadastra um ponto na base de dados")
     public ResponseEntity<SuccessResponse> create(@RequestBody TimesheetVO obj) throws ParseException {
 
@@ -59,7 +59,7 @@ public class TimesheetController {
         return ResponseEntity.status(201).body(new SuccessResponse(HttpStatus.CREATED, timesheetCreated));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" }, consumes = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Atualiza um ponto na base de dados")
     public ResponseEntity<SuccessResponse> update(@PathVariable("id") Long id, @RequestBody TimesheetVO obj){
 
@@ -68,7 +68,7 @@ public class TimesheetController {
         return ResponseEntity.ok().body(new SuccessResponse(HttpStatus.OK, timesheetUpdated));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
     @ApiOperation("Deleta um ponto na base de dados")
     public ResponseEntity<SuccessResponse> delete(@PathVariable("id") Long id){
 

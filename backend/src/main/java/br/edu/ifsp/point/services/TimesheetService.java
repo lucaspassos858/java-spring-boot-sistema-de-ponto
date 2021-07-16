@@ -36,7 +36,7 @@ public class TimesheetService {
 
     public TimesheetVO save(TimesheetVO timesheetVO) throws ParseException {
 
-        UserVO userVO = userService.findById(timesheetVO.getUsuario().getId());
+        UserVO userVO = userService.findById(timesheetVO.getUsuario().getKey());
 
         timesheetVO.setUsuario(userVO);
 
@@ -49,7 +49,7 @@ public class TimesheetService {
 
         TimesheetVO timesheetFound = this.findById(id);
 
-        UserVO userVO = userService.findById(timesheetVO.getUsuario().getId());
+        UserVO userVO = userService.findById(timesheetVO.getUsuario().getKey());
 
         timesheetFound.setData(timesheetVO.getData());
         timesheetFound.setJornadaInicio(timesheetVO.getJornadaInicio());
